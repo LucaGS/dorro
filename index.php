@@ -8,6 +8,7 @@ if (isset($_GET['name'])) {
 }
 
 $con = mysqli_init();
-mysqli_ssl_set($con,NULL,NULL, "C:\dev\dorro\DigiCertGlobalRootCA.crt.pem", NULL, NULL);
-mysqli_real_connect($conn, "dorro-server.mysql.database.azure.com", "svvaolmvjl", "{V6G52dgRBBQd$64$}", "{d-database}", 3306, MYSQLI_CLIENT_SSL);
+mysqli_ssl_set(mysql: $con,key: NULL,certificate: NULL, ca_certificate: "C:\dev\dorro\DigiCertGlobalRootCA.crt.pem", ca_path: NULL, cipher_algos: NULL);
+mysqli_real_connect(mysql: $conn, hostname: "dorro-server.mysql.database.azure.com", username: "svvaolmvjl", password: "{V6G52dgRBBQd$64$}", database: "{d-database}", port: 3306, socket: MYSQLI_CLIENT_SSL);
+var_dump($con);
 ?>
