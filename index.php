@@ -7,7 +7,7 @@ $db = getDatabaseConnection();
 
 // Controller initialisieren
 $userController = new UserController($db);
-
+echo 'test';
 // Benutzerliste anzeigen
 $userController->listUsers();
 ?>
