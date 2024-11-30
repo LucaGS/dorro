@@ -18,7 +18,7 @@ if (mysqli_real_connect(
     "dorro-server.mysql.database.azure.com", // Hostname
     "svvaolmvjl",                           // Benutzername
     "V6G52dgRBBQd$64$",                     // Passwort
-    "d-database",                           // Datenbankname
+    "dorro",                           // Datenbankname
     3306,                                   // Port
     MYSQLI_CLIENT_SSL                       // SSL-Verbindung
 )) {
