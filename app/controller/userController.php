@@ -12,7 +12,7 @@ class UserController {
     public function listUsers() {
         // Daten aus dem Model abrufen
         $users = $this->userModel->getAllUsers();
-
+        echo 'test';
         // View laden und Daten übergeben
         require_once __DIR__ . '/../views/userList.php';
     }
