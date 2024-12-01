@@ -8,5 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
            echo 'no user found';
             break;
     }
+}else {
+    echo'HI ,mum';
 }
 ?>
