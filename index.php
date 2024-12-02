@@ -4,8 +4,7 @@ require_once __DIR__ . '/app/controller/userController.php';
 require_once __DIR__ . '/app/Models/userModel.php';
 
 $conn = getDatabaseConnection();
-$userModel = new UserModel($conn);
-$userController = new UserController($userModel);
+$userController = new UserController($conn);
 if ($conn) {
     echo "Datenbankverbindung erfolgreich!";
     $userController->listUsers();
