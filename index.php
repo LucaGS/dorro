@@ -11,4 +11,13 @@ if ($conn) {
 } else {
     echo "Verbindung fehlgeschlagen.";
 }
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'])) {
+    $action = $_GET['action'];
+    switch ($action) {
+        case 'ListUser':
+            $userController->listUsers();
+            break;
+    }
+}
 ?>
