@@ -20,5 +20,15 @@ class UserController
         // View laden und Daten übergeben
         sendResponse("usersFound", "hi mom", json_encode($users));
     }
+    public function RegisterUser($username, $email, $password)
+    {
+        try {
+            $user = $this->userModel->addUser($username, $password, $email);
+            sendResponse("", "Neuer Benutzer hinzugefügt", json_encode($user));
+        } catch (Exception $e) {
+            echo "Fehler: " . $e->getMessage();
+        }
+
+    }
 }
 ?>
