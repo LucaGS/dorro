@@ -6,6 +6,7 @@ $conn = getDatabaseConnection();
 $userController = new UserController($conn);
 if ($conn) {
     echo "Datenbankverbindung erfolgreich!";
+    $userController->listUsers();
 } else {
     echo "Verbindung fehlgeschlagen.";
 }
