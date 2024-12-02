@@ -1,14 +1,12 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action'])) {
-    switch ($_GET['action']) {
-        case 'getUser':
-                echo 'userfound';
-            break;
-        default:
-           echo 'no user found';
-            break;
-    }
-}else {
-    echo'HI ,mum';
+require_once __DIR__ . '/config/database.php';
+
+$conn = getDatabaseConnection();
+
+if ($conn) {
+    echo "Datenbankverbindung erfolgreich!";
+    // Hier kannst du mit $conn arbeiten, z. B. Abfragen ausführen
+} else {
+    echo "Verbindung fehlgeschlagen.";
 }
 ?>
