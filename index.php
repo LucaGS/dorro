@@ -1,11 +1,14 @@
 <?php
 require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/app/controller/userController.php';
+require_once __DIR__ . '/app/Models/userModel.php';
 
 $conn = getDatabaseConnection();
-
+$userController = new UserController($con);
+$userController->listUsers();
 if ($conn) {
     echo "Datenbankverbindung erfolgreich!";
-    // Hier kannst du mit $conn arbeiten, z. B. Abfragen ausführen
+    $userController->listUsers();
 } else {
     echo "Verbindung fehlgeschlagen.";
 }
