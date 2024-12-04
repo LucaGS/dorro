@@ -38,6 +38,10 @@ class UserModel
             return false;
         }
     }
+    public function getUser($username, $password)
+    {
+
+    }
 
 
 

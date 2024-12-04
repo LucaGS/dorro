@@ -20,6 +20,7 @@ class UserController
         // View laden und Daten übergeben
         sendResponse("usersFound", "hi mom", json_encode($users));
     }
+
     public function registerUser()
     {
         // Daten validieren
