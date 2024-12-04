@@ -29,8 +29,11 @@ class UserController
         }
 
         $username = $_POST['username'];
+        echo $username;
         $email = $_POST['email'];
+        echo $email;
         $password = $_POST['password'];
+        echo $password;
 
         // Benutzer erstellen
         $success = $this->userModel->createUser($username, $email, $password);
