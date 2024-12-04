@@ -20,15 +20,28 @@ class UserController
         // View laden und Daten übergeben
         sendResponse("usersFound", "hi mom", json_encode($users));
     }
-    public function RegisterUser($username, $email, $password)
+    public function registerUser()
     {
-        try {
-            $user = $this->userModel->addUser($username, $password, $email);
-            sendResponse("", "Neuer Benutzer hinzugefügt", json_encode($user));
-        } catch (Exception $e) {
-            echo "Fehler: " . $e->getMessage();
+        // Daten validieren
+        if (!isset($_POST['username'], $_POST['email'], $_POST['password'])) {
+            sendResponse("error", "Invalid input", null);
+            return;
         }
 
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        // Benutzer erstellen
+        $success = $this->userModel->createUser($username, $email, $password);
+
+        if ($success) {
+            sendResponse("success", "User registered successfully", null);
+        } else {
+            sendResponse("error", "User registration failed", null);
+        }
     }
+
+
 }
 ?>

@@ -23,40 +23,23 @@ class UserModel
         }
         return $users;
     }
-    public function addUser($username, $password, $email)
+    public function createUser($username, $email, $password)
     {
-        // Escape die Eingabewerte, um SQL-Injections zu verhindern
-        $username = mysqli_real_escape_string($this->db, $username);
-        $password = mysqli_real_escape_string($this->db, $password);
-        $email = mysqli_real_escape_string($this->db, $email);
-
-        // Passwort verschlüsseln (empfohlen: password_hash verwenden)
+        // Passwort hashen
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        // Insert Query
-        $query = "INSERT INTO User (username, password, email) 
-                  VALUES ('$username', '$hashedPassword', '$email')";
+        $query = "INSERT INTO User (username, email, password) VALUES (?, ?, ?)";
+        $stmt = mysqli_prepare($this->db, $query);
+        mysqli_stmt_bind_param($stmt, 'sss', $username, $email, $hashedPassword);
 
-        $result = mysqli_query($this->db, $query);
-
-        if (!$result) {
-            // Fehlerbehandlung bei SQL-Fehler
-            throw new Exception("Fehler beim Hinzufügen des Benutzers: " . mysqli_error($this->db));
-        }
-
-        // Die zuletzt eingefügte ID abrufen
-        $userId = mysqli_insert_id($this->db);
-
-        // Den vollständigen Benutzer aus der Datenbank abrufen
-        $query = "SELECT * FROM User WHERE id = $userId";
-        $result = mysqli_query($this->db, $query);
-
-        if ($result && mysqli_num_rows($result) > 0) {
-            return mysqli_fetch_assoc($result);
+        if (mysqli_stmt_execute($stmt)) {
+            return true;
         } else {
-            throw new Exception("Fehler beim Abrufen des neuen Benutzers.");
+            return false;
         }
     }
+
+
 
 }
 ?>
