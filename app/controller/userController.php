@@ -22,15 +22,15 @@ class UserController
     }
     public function registerUser()
     {
-        $data = json_decode($_POST);
-        if (!isset($data['username'], $data['email'], $data['password'])) {
+        // Daten validieren
+        if (!isset($_POST['username'], $_POST['email'], $_POST['password'])) {
             sendResponse("error", "Invalid input", null);
             return;
         }
 
-        $username = $data['username'];
-        $email = $data['email'];
-        $password = $data['password'];
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
         // Benutzer erstellen
         $success = $this->userModel->createUser($username, $email, $password);
