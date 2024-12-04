@@ -18,7 +18,7 @@ class UserController
         $users = $this->userModel->getAllUsers();
 
         // View laden und Daten übergeben
-        sendResponse("usersFound", "hi mom", json_encode($users));
+        sendResponse("usersFound", "hi mom", ($users));
     }
 
     public function registerUser()
