@@ -28,14 +28,9 @@ class UserController
             sendResponse("error", "Invalid input", null);
             return;
         }
-
         $username = $_POST['username'];
-        echo $username;
         $email = $_POST['email'];
-        echo $email;
         $password = $_POST['password'];
-        echo $password;
-
         // Benutzer erstellen
         $success = $this->userModel->createUser($username, $email, $password);
 
@@ -44,6 +39,14 @@ class UserController
         } else {
             sendResponse("error", "User registration failed", null);
         }
+    }
+    public function LoginUser($username, $password){
+        $user = $this->userModel->getUserByName($username, $password);
+        if ($user) {
+            sendResponse("success","", $user);
+        }
+
+
     }
 
 

@@ -38,10 +38,28 @@ class UserModel
             return false;
         }
     }
-    public function getUser($username, $password)
+    public function getUserByName($username, $password)
     {
-
+        $query = "SELECT * FROM User WHERE username = ?";
+        $stmt = mysqli_prepare($this->db, $query);
+        mysqli_stmt_bind_param($stmt, 's', $username);
+        mysqli_stmt_execute($stmt);
+    
+        $result = mysqli_stmt_get_result($stmt);
+        if ($result && $row = mysqli_fetch_assoc($result)) {
+            // Debugging-Ausgabe
+            error_log("Benutzer gefunden: " . json_encode($row));
+            
+            if (isset($row['Password']) && password_verify($password, $row['Password'])) {
+                unset($row['Password']);
+                return $row;
+            }
+        }
+        error_log("Benutzer oder Passwort nicht korrekt");
+        return null;
     }
+    
+
 
 
 
