@@ -1,8 +1,8 @@
 <?php
-// app/views/response.php
+namespace App\Views;
 
-// Diese Funktion hilft dabei, konsistente JSON-Antworten zu erstellen
-function sendResponse($status, $message, $data = null) {
+class Response {
+    public static function sendResponse($status, $message, $data = null) {
     header('Content-Type: application/json');
     
     // Erstellen der Antwortstruktur
@@ -20,4 +20,6 @@ function sendResponse($status, $message, $data = null) {
     echo json_encode($response);
     exit;  // Stoppe die Ausführung, da die Antwort gesendet wurde
 }
+}
+
 ?>

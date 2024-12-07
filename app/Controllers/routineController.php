@@ -1,13 +1,17 @@
 <?php
-require_once(__DIR__ ."/../Models/routineModel.php");
+namespace App\Controllers;
+use App\Models\RoutineModel;
+use App\Views\Response;
+use  App\Views\sendResponse;
 
 class RoutineController
 {
     private $routineModel;
-
+    private $response;
     public function __construct($db)
     {
         $this->routineModel = new RoutineModel($db);
+        $this->response = new Response();
     }
     public function AddUserRoutine(){
         #$routine_name,$routine_type, $user_id, $description = "description"
@@ -17,7 +21,7 @@ class RoutineController
         $user_id = $_POST["user_id"];
         $routine = $this->routineModel->createRoutine($routine_name, $routine_type, $user_id, $description);
         if($routine){
-            sendResponse("success","Creaated:".$routine_name);
+            $this->response->sendResponse("success","Creaated:".$routine_name);
         }
     }
 }

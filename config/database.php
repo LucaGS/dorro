@@ -1,4 +1,5 @@
 <?php
+
 function getDatabaseConnection() {
     // Initialisierung der MySQLi-Verbindung
     $con = mysqli_init();

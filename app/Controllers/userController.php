@@ -1,14 +1,17 @@
 <?php
-require_once __DIR__ . '/../models/UserModel.php';
-require_once __DIR__ . '/../Views/response.php';
+namespace App\Controllers;
+use App\Models\UserModel;
+use  App\Views\Response;
 
 class UserController
 {
+    private $response;
     private $userModel;
 
     public function __construct($db)
     {
         $this->userModel = new UserModel($db);
+        $this->response = new Response();
     }
 
     // Methode, um alle Benutzer anzuzeigen
@@ -18,14 +21,14 @@ class UserController
         $users = $this->userModel->getAllUsers();
 
         // View laden und Daten übergeben
-        sendResponse("usersFound", "hi mom", ($users));
+        $this->response->sendResponse("usersFound", "hi mom", ($users));
     }
 
     public function registerUser()
     {
         // Daten validieren
         if (!isset($_POST['username'], $_POST['email'], $_POST['password'])) {
-            sendResponse("error", "Invalid input", null);
+            $this->response->sendResponse("error", "Invalid input", null);
             return;
         }
         $username = $_POST['username'];
@@ -35,15 +38,15 @@ class UserController
         $success = $this->userModel->createUser($username, $email, $password);
 
         if ($success) {
-            sendResponse("success", "User registered successfully", null);
+            $this->response->sendResponse("success", "User registered successfully", null);
         } else {
-            sendResponse("error", "User registration failed", null);
+            $this->response->sendResponse("error", "User registration failed", null);
         }
     }
     public function LoginUser($username, $password){
         $user = $this->userModel->getUserByName($username, $password);
         if ($user) {
-            sendResponse("success","", $user);
+            $this->response->sendResponse("success","", $user);
         }
 
 

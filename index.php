@@ -1,7 +1,8 @@
 <?php
-require_once __DIR__ . '/config/database.php';
-require_once __DIR__ . '/app/controller/userController.php';
-require_once __DIR__ . '/app/controller/routineController.php';
+require_once __DIR__ . '/autoloader.php';
+require_once __DIR__ .'/config/database.php';
+use App\Controllers\UserController;
+use App\Controllers\RoutineController;
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
