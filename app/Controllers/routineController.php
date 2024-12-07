@@ -24,4 +24,7 @@ class RoutineController
             $this->response->sendResponse("success","Creaated:".$routine_name);
         }
     }
+    public function GetUserRoutines($user_id){
+       
+    }
 }

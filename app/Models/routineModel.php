@@ -17,4 +17,17 @@ class RoutineModel{
             return false;
         }
     }
+    public function getRoutinesByUserId($user_id){
+        $query = 'SELECT * FROM routines WHERE user_id = ?';
+        $stmt = mysqli_prepare($this->db, $query);
+        mysqli_stmt_bind_param($stmt, 'i', $user_id);
+        $result = mysqli_stmt_get_result($stmt);
+        $routines = [];
+        if ($result) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $routines[] = $row;
+            }
+        }
+        return $routines;
+    }
 }
