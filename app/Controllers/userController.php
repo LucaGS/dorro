@@ -43,7 +43,13 @@ class UserController
             $this->response->sendResponse("error", "User registration failed", null);
         }
     }
-    public function LoginUser($username, $password){
+    public function LoginUser(){
+        if (!isset($_POST["username"], $_POST["password"])) {
+            $this->response->sendResponse("error", "Invalid input", null);
+            return;
+        }
+        $username = $_POST['username'];
+        $password = $_POST['password'];
         $user = $this->userModel->getUserByName($username, $password);
         if ($user) {
             $this->response->sendResponse("success","", $user);

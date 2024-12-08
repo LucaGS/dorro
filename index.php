@@ -18,11 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'])) {
         case 'ListUser':
             $userController->listUsers();
             break;
-        case 'LoginUser':
-            $username = $_GET['username'];
-            $password = $_GET['password'];
-            $userController->LoginUser($username, $password);
-            break;
         case 'GetRoutineActivitys':
             $activityController->GetRoutineActivitys();
         break;
@@ -40,6 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])) {
         case'addActivity':
             $activityController->AddActivityToRoutine();
             break;
+        case 'LoginUser':
+            $userController->LoginUser();
+                break;
 
 
 
