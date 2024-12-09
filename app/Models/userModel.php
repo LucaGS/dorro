@@ -25,25 +25,24 @@ class UserModel
         return $users;
     }
     public function createUser($username, $email, $password)
-    {
-        // Passwort hashen
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+{
+    // Passwort hashen
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        $query = "INSERT INTO User (username, email, password) VALUES (?, ?, ?)";
-        $stmt = mysqli_prepare($this->db, $query);
-        mysqli_stmt_bind_param($stmt, 'sss', $username, $email, $hashedPassword);
+    // Insert-Query mit LAST_INSERT_ID
+    $query = "INSERT INTO User (username, email, password) VALUES (?, ?, ?)";
+    $stmt = mysqli_prepare($this->db, $query);
+    mysqli_stmt_bind_param($stmt, 'sss', $username, $email, $hashedPassword);
 
-        if (!mysqli_stmt_execute($stmt)) {
-            return false;
-        }
-        $getUserIdQuery = "SELECT userid FROM USER WHERE username = ?";
-        $stmt = mysqli_prepare($this->db, $getUserIdQuery);
-        mysqli_stmt_bind_param($stmt, "s",$username);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        $row = mysqli_fetch_assoc($result);
-        return $row;
+    if (!mysqli_stmt_execute($stmt)) {
+        return false;
     }
+
+    // Direkt die zuletzt eingefügte ID abrufen
+    $userId = mysqli_insert_id($this->db);
+    return ['userid' => $userId];
+}
+
     public function getUserByEmail($email, $password)
     {
         $query = "SELECT * FROM User WHERE email = ?";
