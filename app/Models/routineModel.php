@@ -1,5 +1,7 @@
 <?php 
 namespace App\Models;
+
+use FFI\Exception;
 class RoutineModel{
     private $db;
 
@@ -21,6 +23,9 @@ class RoutineModel{
         $query = 'SELECT * FROM routines WHERE user_id = ?';
         $stmt = mysqli_prepare($this->db, $query);
         mysqli_stmt_bind_param($stmt, 'i', $user_id);
+        if (!mysqli_stmt_execute($stmt)) {
+            throw new Exception('Failed to execute the statement: ' . mysqli_stmt_error($stmt));
+        }
         $result = mysqli_stmt_get_result($stmt);
         $routines = [];
         if ($result) {

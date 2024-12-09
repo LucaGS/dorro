@@ -18,9 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['action'])) {
         case 'ListUser':
             $userController->listUsers();
             break;
-        case 'GetRoutineActivitys':
+        case 'ListRoutineActivitys':
             $activityController->GetRoutineActivitys();
-        break;
+            break;
+        case 'ListUserRoutines':
+            $routineController->GetUserRoutines();
+            break;
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])) {

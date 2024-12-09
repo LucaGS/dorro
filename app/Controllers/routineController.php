@@ -24,7 +24,13 @@ class RoutineController
             $this->response->sendResponse("success","Creaated:".$routine_name);
         }
     }
-    public function GetUserRoutines($user_id){
-       
+    public function GetUserRoutines(){
+        $user_id = $_GET["user_id"];
+       $routines = $this->routineModel->getRoutinesByUserId($user_id);
+       if($routines){
+        $this->response->sendResponse("success","received User Routines", $routines);
+       }else{
+        $this->response->sendResponse("Failed","");
+       }
     }
 }
