@@ -33,17 +33,22 @@ class UserModel
         $stmt = mysqli_prepare($this->db, $query);
         mysqli_stmt_bind_param($stmt, 'sss', $username, $email, $hashedPassword);
 
-        if (mysqli_stmt_execute($stmt)) {
-            return true;
-        } else {
+        if (!mysqli_stmt_execute($stmt)) {
             return false;
         }
+        $getUserIdQuery = "SELECT userid FROM USER WHERE username = ?";
+        $stmt = mysqli_prepare($this->db, $getUserIdQuery);
+        mysqli_stmt_bind_param($stmt, "s",$username);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $row = mysqli_fetch_assoc($result);
+        return $row;
     }
-    public function getUserByName($username, $password)
+    public function getUserByEmail($email, $password)
     {
-        $query = "SELECT * FROM User WHERE username = ?";
+        $query = "SELECT * FROM User WHERE email = ?";
         $stmt = mysqli_prepare($this->db, $query);
-        mysqli_stmt_bind_param($stmt, 's', $username);
+        mysqli_stmt_bind_param($stmt, 's', $email);
         mysqli_stmt_execute($stmt);
     
         $result = mysqli_stmt_get_result($stmt);

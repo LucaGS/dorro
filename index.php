@@ -38,9 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])) {
         case 'LoginUser':
             $userController->LoginUser();
                 break;
-
-
-
     }
 }
 

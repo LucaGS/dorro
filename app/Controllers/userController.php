@@ -35,22 +35,22 @@ class UserController
         $email = $_POST['email'];
         $password = $_POST['password'];
         // Benutzer erstellen
-        $success = $this->userModel->createUser($username, $email, $password);
+        $userid = $this->userModel->createUser($username, $email, $password);
 
-        if ($success) {
-            $this->response->sendResponse("success", "User registered successfully", null);
+        if ($userid) {
+            $this->response->sendResponse("success", "User registered successfully", $userid);
         } else {
             $this->response->sendResponse("error", "User registration failed", null);
         }
     }
     public function LoginUser(){
-        if (!isset($_POST["username"], $_POST["password"])) {
+        if (!isset($_POST["email"], $_POST["password"])) {
             $this->response->sendResponse("error", "Invalid input", null);
             return;
         }
-        $username = $_POST['username'];
+        $email = $_POST['email'];
         $password = $_POST['password'];
-        $user = $this->userModel->getUserByName($username, $password);
+        $user = $this->userModel->getUserByEmail($email, $password);
         if ($user) {
             $this->response->sendResponse("success","", $user);
         }
