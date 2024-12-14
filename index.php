@@ -32,15 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])) {
         case 'RegisterUser':
             $userController->registerUser();
             break;
-        case'addRoutine':
+        case 'addRoutine':
             $routineController->AddUserRoutine();
             break;
-        case'addActivity':
+        case 'addActivity':
             $activityController->AddActivityToRoutine();
             break;
         case 'LoginUser':
             $userController->LoginUser();
-                break;
+            break;
     }
 }
 

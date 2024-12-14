@@ -25,7 +25,7 @@ class activityModel{
         if ($stmt) {
             mysqli_stmt_bind_param($stmt, 'i', $routine_id);
             mysqli_stmt_execute($stmt); // Statement ausführen
-            $result = mysqli_stmt_get_result($stmt); // Ergebnis abrufen
+            $result = mysqli_stmt_get_result($stmt); // Ergebnis abrufen  
             
             if ($result) {
                 while ($row = mysqli_fetch_assoc($result)) {

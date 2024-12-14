@@ -14,14 +14,24 @@ class RoutineController
         $this->response = new Response();
     }
     public function AddUserRoutine(){
-        #$routine_name,$routine_type, $user_id, $description = "description"
+        // First verify all required parameters are present
+        if (!isset($_POST['routine_name']) || !isset($_POST['routine_type']) || 
+            !isset($_POST['description']) || !isset($_POST['user_id'])) {
+            $this->response->sendResponse("error", "Missing required parameters");
+            return;
+        }
+
         $routine_name = $_POST['routine_name'];
         $routine_type = $_POST['routine_type'];
         $description = $_POST['description'];
         $user_id = $_POST["user_id"];
-        $routine = $this->routineModel->createRoutine($routine_name, $routine_type, $user_id, $description);
-        if($routine){
-            $this->response->sendResponse("success","Creaated:".$routine_name);
+        
+        $routineid = $this->routineModel->createRoutine($routine_name, $routine_type, $user_id, $description);
+        if($routineid) {
+            $this->response->sendResponse("success", "Created routine with ID: " . $routineid);
+        } else {
+            // Add error message from database
+            $this->response->sendResponse("error", "Failed to create routine: " . mysqli_error($this->routineModel->db));
         }
     }
     public function GetUserRoutines(){
