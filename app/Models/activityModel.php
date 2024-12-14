@@ -17,7 +17,7 @@ class activityModel{
              return false;
          }
      }
-     public function GetAllRoutineActivitys($routine_id) {
+     public function GetAllRoutineActivitys($routine_id):array {
         $activitys = [];
         $query = 'SELECT * FROM activitys WHERE routine_id = ? ORDER BY position';
         $stmt = mysqli_prepare($this->db, $query);

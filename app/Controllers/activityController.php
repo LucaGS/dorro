@@ -12,7 +12,6 @@ class ActivityController
         $this->response = new Response();
     }
     public function AddActivityToRoutine(){
-        #$activity_name, $activity_description, $routine_id, $position, $duration,$min_duration,$points
         $activity_name = $_POST["activity_name"];
         $activity_description = $_POST["activity_description"];
         $routine_id = $_POST["routine_id"];
