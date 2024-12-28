@@ -31,7 +31,7 @@ class RoutineController
             $this->response->sendResponse("success", "Created routine with ID: " . $routineid);
         } else {
             // Add error message from database
-            $this->response->sendResponse("error", "Failed to create routine: " . mysqli_error($this->routineModel->db));
+            $this->response->sendResponse("error", "Failed to create routine: " );
         }
     }
     public function GetUserRoutines(){
@@ -40,7 +40,7 @@ class RoutineController
        if($routines){
         $this->response->sendResponse("success","received User Routines", $routines);
        }else{
-        $this->response->sendResponse("Failed","");
+        $this->response->sendResponse("error", "Failed to retrieve routines for user ID: " . $user_id . ". Error: " . mysqli_error($this->routineModel->getDb()));
        }
     }
 }

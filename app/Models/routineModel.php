@@ -9,6 +9,9 @@ class RoutineModel{
     {
         $this->db = $db;
     }
+    public function getDb(){
+        return $this->db;
+    }
     public function createRoutine($routine_name, $routine_type, $user_id, $description = "description") {
         $query = "INSERT INTO routines(routine_name, type, user_id, description) VALUES (?, ?, ?, ?)";
         $stmt = mysqli_prepare($this->db, $query);
