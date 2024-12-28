@@ -39,4 +39,19 @@ class RoutineModel{
         }
         return $routines;
     }
+    public function DeleteUserRoutine($routine_id): bool{
+        $query = 'DELETE * FROM routines WHERE routine_id = ?';
+        $stmt = mysqli_prepare($this->db, $query);
+        if($stmt){
+            mysqli_stmt_bind_param($stmt, 'i',$routine_id);
+            mysqli_stmt_execute($stmt); 
+             $result = mysqli_stmt_get_result($stmt);
+              if($result){
+                return true;
+              }
+             
+        }
+        return false;
+    }
+    
 }

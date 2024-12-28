@@ -43,6 +43,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])) {
             break;
     }
 }
+if ($_SERVER['REQUEST_METHOD'] == 'DELETE' && isset($_GET['action'])) {
+    $action = $_GET['action'];
+    switch ($action) {
+        case 'DeleteActivity':
+            $activityController->DeleteActivity();
+            break;
+        case 'DeleteRoutine':
+            $routineController->DeleteRoutine(); 
+            break;
+    }
+}
 
 
 ?>

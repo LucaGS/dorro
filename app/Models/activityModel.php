@@ -38,5 +38,17 @@ class activityModel{
         
         return $activitys;
     }
+    public function DeleteRoutineActivity($activity_id){
+        $query = 'DELETE * FROM activitys WHERE activity_id = ?';
+        $stmt = mysqli_prepare($this->db, $query);
+        if($stmt){
+            mysqli_stmt_bind_param($stmt, 'i',$activity_id);
+            mysqli_stmt_execute($stmt); 
+             $result = mysqli_stmt_get_result($stmt);
+              if($result){
+                return true;
+              }
+        }
+    }
     
 }

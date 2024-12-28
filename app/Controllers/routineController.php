@@ -43,4 +43,12 @@ class RoutineController
         $this->response->sendResponse("error", "Failed to retrieve routines for user ID: " . $user_id . ". Error: " . mysqli_error($this->routineModel->getDb()));
        }
     }
+    public function DeleteRoutine(){
+       $routine_id=$_GET['routine_id'];
+      $result =  $this->routineModel->DeleteUserRoutine($routine_id);
+      if($result){
+        $this->response->sendResponse('success','deleted routine with the id :'. $routine_id, $routine_id);
+      }
+
+    }
 }

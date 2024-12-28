@@ -35,4 +35,14 @@ class ActivityController
             $this->response->sendResponse("success","amount of activitys:".sizeof($activitys), $activitys);
         }
     }
+    public function DeleteActivity(){
+        $activity_id = $_GET['activity_id'];
+        $result = $this->activityModel->DeleteRoutineActivity($activity_id);
+        if($result){
+            $this->response->sendResponse('success','Deleted the activity witth the id'.$activity_id);
+        }else{
+            $this->response->sendResponse('error','', $activity_id);
+        }
+        
+    }
 }
