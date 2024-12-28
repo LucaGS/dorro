@@ -44,7 +44,7 @@ class RoutineController
        }
     }
     public function DeleteRoutine(){
-       $routine_id=$_GET['routine_id'];
+    $routine_id = $_GET['routine_id'];
       $result =  $this->routineModel->DeleteUserRoutine($routine_id);
       if($result){
         $this->response->sendResponse('success','deleted routine with the id :'. $routine_id, $routine_id);

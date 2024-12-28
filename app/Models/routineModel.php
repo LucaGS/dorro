@@ -40,19 +40,16 @@ class RoutineModel{
         return $routines;
     }
     public function DeleteUserRoutine($routine_id): bool{
-         // Remove the * after DELETE
-         $query = 'DELETE FROM routines WHERE routine_id = ?';
+         $query = 'DELETE FROM routines WHERE id = ?';
          $stmt = mysqli_prepare($this->db, $query);
          if($stmt){
              mysqli_stmt_bind_param($stmt, 'i', $routine_id);
              mysqli_stmt_execute($stmt); 
-             // For DELETE queries, we don't need to get a result
-             // Just check if the execution was successful
              if(mysqli_stmt_affected_rows($stmt) > 0){
                  return true;
              }
          }
-         return false; // Add explicit return false for error cases
+         return false; 
     }
     
 }
