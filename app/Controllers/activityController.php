@@ -39,9 +39,9 @@ class ActivityController
         $activity_id = $_GET['activity_id'];
         $result = $this->activityModel->DeleteRoutineActivity($activity_id);
         if($result){
-            $this->response->sendResponse('success','Deleted the activity witth the id'.$activity_id);
+            $this->response->sendResponse('success','Deleted the activity with the id '.$activity_id);
         }else{
-            $this->response->sendResponse('error','', $activity_id);
+            $this->response->sendResponse('error','could not delete the acitiviy:'. $activity_id, $activity_id);
         }
         
     }

@@ -39,16 +39,19 @@ class activityModel{
         return $activitys;
     }
     public function DeleteRoutineActivity($activity_id){
-        $query = 'DELETE * FROM activitys WHERE activity_id = ?';
+        // Remove the * after DELETE
+        $query = 'DELETE FROM activitys WHERE activity_id = ?';
         $stmt = mysqli_prepare($this->db, $query);
         if($stmt){
-            mysqli_stmt_bind_param($stmt, 'i',$activity_id);
+            mysqli_stmt_bind_param($stmt, 'i', $activity_id);
             mysqli_stmt_execute($stmt); 
-             $result = mysqli_stmt_get_result($stmt);
-              if($result){
+            // For DELETE queries, we don't need to get a result
+            // Just check if the execution was successful
+            if(mysqli_stmt_affected_rows($stmt) > 0){
                 return true;
-              }
+            }
         }
+        return false; // Add explicit return false for error cases
     }
     
 }
