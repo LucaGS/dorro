@@ -1,7 +1,7 @@
 <?php 
 namespace App\Models;
 
-use FFI\Exception;
+use Exception;
 class RoutineModel{
     private $db;
 

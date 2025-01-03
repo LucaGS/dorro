@@ -1,5 +1,7 @@
 <?php
 namespace App\Models;
+
+use Exception;
 class activityModel{
     private $db;
 
@@ -52,6 +54,40 @@ class activityModel{
             }
         }
         return false; // Add explicit return false for error cases
+    }
+    public function UpdateRoutineActivityPositions($routine_id,$positions){
+         // Start transaction
+    mysqli_begin_transaction($this->db);
+    
+    try {
+        $query = "UPDATE activitys SET position = ? WHERE activity_id = ? AND routine_id = ?";
+        $stmt = mysqli_prepare($this->db, $query);
+        
+        foreach ($positions as $position) {
+                mysqli_stmt_bind_param($stmt, 'iii', 
+                    $position['new_position'],
+                $position['activity_id'],
+                $routine_id
+            );
+            
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Failed to update position");
+            }
+        }
+        
+        // If we get here, all updates were successful
+        mysqli_commit($this->db);
+        return true;
+        
+    } catch (Exception $e) {
+        // If anything fails, rollback all changes
+        mysqli_rollback($this->db);
+        return false;
+    } finally {
+        if (isset($stmt)) {
+            mysqli_stmt_close($stmt);
+        }
+    }
     }
     
 }

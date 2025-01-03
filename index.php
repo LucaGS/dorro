@@ -41,6 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])) {
         case 'LoginUser':
             $userController->LoginUser();
             break;
+        case "UpdateActivityPositions":
+            break;
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE' && isset($_GET['action'])) {
@@ -54,6 +56,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE' && isset($_GET['action'])) {
             break;
     }
 }
+if ($_SERVER['REQUEST_METHOD'] == 'PUT' && isset($_GET['action'])) {
+    $action = $_GET['action'];
+    switch ($action) {
+        case 'UpdateActivityPositions':
+            $activityController->UpdateActivityPositions();
+            break;
+}
+}
 
 
-?>
