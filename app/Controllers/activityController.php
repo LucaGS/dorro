@@ -46,30 +46,26 @@ class ActivityController
         
     }
     public function UpdateActivityPositions() {
-        // Get PUT data
-        $putData = file_get_contents("php://input");
-        parse_str($putData, $putParams);
-
-        // Ensure data exists
-        if (!isset($putParams['routine_id']) || !isset($putParams['positions'])) {
+        // Ensure required POST parameters exist
+        if (!isset($_POST['routine_id']) || !isset($_POST['positions'])) {
             $this->response->sendResponse('error', 'Missing required parameters');
             return;
         }
-
-        $routine_id = $putParams['routine_id'];
-        // Decode the JSON string into an array and wrap single object in array if needed
-        $positions = json_decode($putParams['positions'], true);
-        
+    
+        $routine_id = $_POST['routine_id'];
+        $positions = json_decode($_POST['positions'], true);
+    
+        // Validate JSON decoding
         if (!$positions) {
             $this->response->sendResponse('error', 'Invalid positions data format');
             return;
         }
-
+    
         // If positions is a single object, wrap it in an array
         if (isset($positions['activity_id'])) {
             $positions = [$positions];
         }
-
+    
         $result = $this->activityModel->UpdateRoutineActivityPositions($routine_id, $positions);
         
         if ($result) {
@@ -78,5 +74,6 @@ class ActivityController
             $this->response->sendResponse('error', 'Failed to update positions');
         }
     }
+    
 
 }

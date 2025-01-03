@@ -58,13 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE' && isset($_GET['action'])) {
             break;
     }
 }
-if ($_SERVER['REQUEST_METHOD'] == 'PUT' && isset($_GET['action'])) {
-    $action = $_GET['action'];
-    switch ($action) {
-        case 'UpdateActivityPositions':
-            $activityController->UpdateActivityPositions();
-            break;
-}
-}
+
 
 
