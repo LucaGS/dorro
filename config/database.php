@@ -19,7 +19,7 @@ function getDatabaseConnection() {
         $con,
         "dorro-server.mysql.database.azure.com", // Hostname
         "svvaolmvjl",                           // Benutzername
-        "V6G52dgRBBQd$64$",                     // Passwort
+        "xk$^6.q@,9?MB-8",                     // Passwort
         "dorro",                                // Datenbankname
         3306,                                   // Port
         MYSQLI_CLIENT_SSL                       // Verbindung über SSL
