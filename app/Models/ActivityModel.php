@@ -2,7 +2,7 @@
 namespace app\Models;
 
 use Exception;
-class activityModel{
+class ActivityModel{
     private $db;
 
     public function __construct($db)
