@@ -68,7 +68,7 @@ class UserModel
         $result = mysqli_stmt_get_result($stmt);
         if ($result && $row = mysqli_fetch_assoc($result)) {
             // Debugging-Ausgabe
-            error_log("Benutzer gefunden: " . json_encode($row));
+            error_log("Benutzer gefunden rr: " . json_encode($row));
             
             if (isset($row['Password']) && password_verify($password, $row['Password'])) {
                 unset($row['Password']);

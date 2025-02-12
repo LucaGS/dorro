@@ -1,16 +1,18 @@
 <?php
 
 spl_autoload_register(function ($class) {
-    // Basisverzeichnis des Projekts
-    $baseDir = __DIR__ . DIRECTORY_SEPARATOR ;
-
-    // Namespace-Separator durch Directory-Separator ersetzen
+    // Convert the class name to lowercase for case-insensitive comparison
+    $baseDir = __DIR__ . DIRECTORY_SEPARATOR;
     $relativeClass = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $class);
-
-    // Datei mit vollständigem Pfad
+    
+    // First try the exact case
     $file = $baseDir . $relativeClass . '.php';
+    
+    // If file doesn't exist, try lowercase version
+    if (!file_exists($file)) {
+        $file = $baseDir . strtolower($relativeClass) . '.php';
+    }
 
-    // Wenn die Datei existiert, einbinden
     if (file_exists($file)) {
         require_once $file;
     } else {
