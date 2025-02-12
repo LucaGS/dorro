@@ -1,5 +1,6 @@
 <?php
 // List all directories and files recursively
+echo $_ENV["DB_DATABASE"];
 function listDirectories($path, $level = 0) {
     $indent = str_repeat("  ", $level); // Two spaces per level for indentation
     
