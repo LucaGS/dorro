@@ -38,16 +38,15 @@ spl_autoload_register(function ($class) {
     listDirectoryContents(__DIR__);
     error_log("=== End Directory Structure ===\n");
     
-    // Base directory is the current directory
-    $baseDir = __DIR__ . '/app';
-    
     // Convert namespace separators to directory separators
     $relativePath = str_replace('App\\', '', $class);
     $paths = [
-        $baseDir . '/' . str_replace('\\', '/', $relativePath) . '.php',                    // Try with /app prefix
         __DIR__ . '/' . str_replace('\\', '/', $relativePath) . '.php',                     // Try without /app prefix
-        strtolower($baseDir . '/' . str_replace('\\', '/', $relativePath) . '.php'),       // Try lowercase with /app prefix
-        strtolower(__DIR__ . '/' . str_replace('\\', '/', $relativePath) . '.php'),        // Try lowercase without /app prefix
+        __DIR__ . '/App/' . str_replace('\\', '/', $relativePath) . '.php',                // Try with uppercase App
+        __DIR__ . '/app/' . str_replace('\\', '/', $relativePath) . '.php',                // Try with lowercase app
+        strtolower(__DIR__ . '/' . str_replace('\\', '/', $relativePath) . '.php'),        // Try lowercase path
+        strtolower(__DIR__ . '/App/' . str_replace('\\', '/', $relativePath) . '.php'),    // Try lowercase with uppercase App
+        strtolower(__DIR__ . '/app/' . str_replace('\\', '/', $relativePath) . '.php'),    // Try lowercase with lowercase app
     ];
     
     error_log("\n=== Trying paths ===");
@@ -60,7 +59,6 @@ spl_autoload_register(function ($class) {
         }
     }
     
-    // If we get here, we've tried all paths and found nothing
     error_log("\n=== File not found ===");
     error_log("Tried the following paths:");
     foreach ($paths as $path) {
