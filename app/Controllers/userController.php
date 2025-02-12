@@ -1,9 +1,9 @@
 <?php
 namespace App\Controllers;
 use App\Models\UserModel;
-use  App\Views\Response;
+use App\Views\Response;
 
-class userController
+class UserController
 {
     private $response;
     private $userModel;
@@ -14,7 +14,7 @@ class userController
         $this->response = new Response();
     }
 
-    // Methode, um alle Benutzer anzuzeigen
+    // Method to list users
     public function listUsers()
     {
         // Daten aus dem Model abrufen
