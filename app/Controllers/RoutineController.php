@@ -1,7 +1,7 @@
 <?php
 namespace app\Controllers;
-use App\Models\RoutineModel;
-use App\Views\Response;
+use app\Models\RoutineModel;
+use app\Views\Response;
 
 
 class RoutineController

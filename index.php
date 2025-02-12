@@ -23,9 +23,9 @@ listDirectories(__DIR__);
 
 require_once __DIR__ . '/autoloader.php';
 require_once __DIR__ .'/config/database.php';
-use App\Controllers\UserController;
-use App\Controllers\RoutineController;
-use App\Controllers\ActivityController;
+use app\Controllers\UserController;
+use app\Controllers\RoutineController;
+use app\Controllers\ActivityController;
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
