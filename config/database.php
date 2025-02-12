@@ -34,11 +34,12 @@ function getDatabaseConnection() {
 function getDatabaseConnection2() {
     // Verbindung zur MySQL-Datenbank mit Umgebungsvariablen
     $con = mysqli_connect(
-        getenv('DB_HOST'),     // Hostname
-        getenv('DB_USERNAME'), // Benutzername
-        getenv('DB_PASSWORD'), // Passwort
-        getenv('DB_DATABASE'), // Datenbankname
-        getenv('DB_PORT')      // Port
+        $_ENV["DB_HOST"],     // Hostname
+        $_ENV["DB_USERNAME"], // Benutzername
+        $_ENV["DB_PASSWORD"], // Passwort
+        $_ENV["DB_DATABASE"], // Datenbankname
+        $_ENV["DB_PORT"]
+              // Port
     );
 
     // Überprüfung der Verbindung
