@@ -22,13 +22,13 @@ spl_autoload_register(function ($class) {
     // If file exists, require it
     if (file_exists($file)) {
         require_once $file;
-        error_log("Successfully loaded: " . $file);
+        error_log("Successfully loaded:   " . $file);
         return true;
     }
     
     error_log("Autoloader versucht zu laden: " . $class);
     throw new Exception("Die Klasse $class konnte nicht geladen werden. " .
-                       "Überprüfte Pfade:\n" . $file);
+                       "Überprüfte Pflade:\n" . $file);
 });
 
 
