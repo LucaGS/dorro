@@ -1,4 +1,12 @@
 <?php
+// List all subdirectories
+$path = __DIR__;
+$directories = glob($path . '/*', GLOB_ONLYDIR);
+echo "Subdirectories:\n";
+foreach ($directories as $dir) {
+    echo basename($dir) . "\n";
+}
+
 require_once __DIR__ . '/autoloader.php';
 require_once __DIR__ .'/config/database.php';
 use App\Controllers\UserController;
