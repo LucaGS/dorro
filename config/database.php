@@ -31,4 +31,21 @@ function getDatabaseConnection() {
         die("Fehler bei der Verbindung zur Datenbank: " . mysqli_connect_error());
     }
 }
+function getDatabaseConnection2() {
+    // Verbindung zur MySQL-Datenbank mit Umgebungsvariablen
+    $con = mysqli_connect(
+        getenv('DB_HOST'),     // Hostname
+        getenv('DB_USERNAME'), // Benutzername
+        getenv('DB_PASSWORD'), // Passwort
+        getenv('DB_DATABASE'), // Datenbankname
+        getenv('DB_PORT')      // Port
+    );
+
+    // Überprüfung der Verbindung
+    if ($con) {
+        return $con;
+    } else {
+        die("Fehler bei der Verbindung zur Datenbank: " . mysqli_connect_error());
+    }
+}
 ?>

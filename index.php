@@ -1,6 +1,6 @@
 <?php
 // List all directories and files recursively
-echo $_ENV["DB_DATABASE"];
+
 function listDirectories($path, $level = 0) {
     $indent = str_repeat("  ", $level); // Two spaces per level for indentation
     
@@ -31,7 +31,7 @@ use app\Controllers\ActivityController;
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-$conn = getDatabaseConnection();
+$conn = getDatabaseConnection2();
 $userController = new UserController($conn);
 $routineController = new RoutineController($conn);
 $activityController = new ActivityController($conn);
