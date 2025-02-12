@@ -28,9 +28,9 @@ use app\Controllers\UserController;
 use app\Controllers\RoutineController;
 use app\Controllers\ActivityController;
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 $conn = getDatabaseConnection2();
 $userController = new UserController($conn);
 $routineController = new RoutineController($conn);
