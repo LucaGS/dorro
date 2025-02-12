@@ -39,36 +39,35 @@ spl_autoload_register(function ($class) {
     error_log("=== End Directory Structure ===\n");
     
     // Base directory is the current directory
-    $baseDir = __DIR__;
+    $baseDir = __DIR__ . '/app';
     
     // Convert namespace separators to directory separators
-    // Remove the 'App' prefix from the path since it's already in the directory structure
     $relativePath = str_replace('App\\', '', $class);
-    $file = $baseDir . '/' . str_replace('\\', '/', $relativePath) . '.php';
+    $paths = [
+        $baseDir . '/' . str_replace('\\', '/', $relativePath) . '.php',                    // Try with /app prefix
+        __DIR__ . '/' . str_replace('\\', '/', $relativePath) . '.php',                     // Try without /app prefix
+        strtolower($baseDir . '/' . str_replace('\\', '/', $relativePath) . '.php'),       // Try lowercase with /app prefix
+        strtolower(__DIR__ . '/' . str_replace('\\', '/', $relativePath) . '.php'),        // Try lowercase without /app prefix
+    ];
     
-    // Try lowercase version if original doesn't exist
-    if (!file_exists($file)) {
-        $lowerFile = strtolower($file);
-        if (file_exists($lowerFile)) {
-            $file = $lowerFile;
+    error_log("\n=== Trying paths ===");
+    foreach ($paths as $path) {
+        error_log("Checking path: " . $path);
+        if (file_exists($path)) {
+            error_log("Found file at: " . $path);
+            require_once $path;
+            return true;
         }
     }
     
-    // Debug information
-    error_log("\n=== File Search ===");
-    error_log("Looking for file: " . $file);
-    error_log("File exists: " . (file_exists($file) ? 'true' : 'false'));
-    
-    // If file exists, require it
-    if (file_exists($file)) {
-        require_once $file;
-        error_log("Successfully loaded: " . $file);
-        return true;
+    // If we get here, we've tried all paths and found nothing
+    error_log("\n=== File not found ===");
+    error_log("Tried the following paths:");
+    foreach ($paths as $path) {
+        error_log("- " . $path);
     }
     
-    error_log("Autoloader versucht zu laden: " . $class);
     throw new Exception("Die Klasse $class konnte nicht geladen werden. " .
-                       "Überprüfte Pfade:\n" . $file);
+                       "Überprüfte Pfade:\n" . implode("\n", $paths));
 });
-
-
+});
