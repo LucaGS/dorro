@@ -70,4 +70,3 @@ spl_autoload_register(function ($class) {
     throw new Exception("Die Klasse $class konnte nicht geladen werden. " .
                        "Überprüfte Pfade:\n" . implode("\n", $paths));
 });
-});
