@@ -3,29 +3,16 @@
 spl_autoload_register(function ($class) {
     // Debug information
     error_log("Attempting to load class: " . $class);
-    error_log("Current directory (__DIR__): " . __DIR__);
-    
-    // List all directories and files in current directory
-    error_log("Directory contents of " . __DIR__ . ":");
-    $files = scandir(__DIR__);
-    foreach ($files as $file) {
-        error_log(" - " . $file);
-    }
     
     // Base directory is the current directory
-    $baseDir = __DIR__;  // Removed /app since we're already in the /app directory
+    $baseDir = __DIR__ . '/src';
     
     // Convert namespace separators to directory separators
-    // Remove the 'App' prefix from the path since it's already in the directory structure
-    $relativePath = str_replace('App\\', '', $class);
-    $file = $baseDir . '/' . str_replace('\\', '/', $relativePath) . '.php';
+    $file = $baseDir . '/' . str_replace('\\', '/', $class) . '.php';
     
-    // Try lowercase version if original doesn't exist
+    // Also try without 'src' if file not found
     if (!file_exists($file)) {
-        $lowerFile = strtolower($file);
-        if (file_exists($lowerFile)) {
-            $file = $lowerFile;
-        }
+        $file = __DIR__ . '/' . str_replace('\\', '/', $class) . '.php';
     }
     
     // Debug information
