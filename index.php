@@ -66,6 +66,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])) {
                 break;
         case'UpdateUserPoints':
             $userController->updatePoints();
+            break;
+        case 'DeleteRoutine':
+            $routineController->DeleteRoutine();
+            break;
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE' && isset($_GET['action'])) {
@@ -74,9 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE' && isset($_GET['action'])) {
         case 'DeleteActivity':
             $activityController->DeleteActivity();
             break;
-        case 'DeleteRoutine':
-            $routineController->DeleteRoutine(); 
-            break;
+        
     }
 }
 
