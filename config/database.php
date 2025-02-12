@@ -38,8 +38,8 @@ function getDatabaseConnection2() {
         $_ENV["DB_USERNAME"], // Benutzername
         $_ENV["DB_PASSWORD"], // Passwort
         $_ENV["DB_DATABASE"], // Datenbankname
-        $_ENV["DB_PORT"]
-              // Port
+        intval($_ENV["DB_PORT"])
+            
     );
 
     // Überprüfung der Verbindung
