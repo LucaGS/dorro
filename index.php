@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/autoloader.php';
 require_once __DIR__ .'/config/database.php';
+require_once __DIR__ .'/App/Controllers/UserController.php';
 use App\Controllers\UserController;
 use App\Controllers\RoutineController;
 use App\Controllers\ActivityController;
