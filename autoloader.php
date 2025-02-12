@@ -5,7 +5,7 @@ spl_autoload_register(function ($class) {
     error_log("Attempting to load class: " . $class);
     
     // Base directory is the current directory
-    $baseDir = __DIR__;
+    $baseDir = __DIR__ . '/app';  // Changed to include /app directory
     
     // Convert namespace separators to directory separators
     // Remove the 'App' prefix from the path since it's already in the directory structure
@@ -17,6 +17,14 @@ spl_autoload_register(function ($class) {
         $lowerFile = strtolower($file);
         if (file_exists($lowerFile)) {
             $file = $lowerFile;
+        }
+    }
+    
+    // Also try without /app if file not found
+    if (!file_exists($file)) {
+        $altFile = __DIR__ . '/' . str_replace('\\', '/', $relativePath) . '.php';
+        if (file_exists($altFile)) {
+            $file = $altFile;
         }
     }
     
