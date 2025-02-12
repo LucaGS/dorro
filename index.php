@@ -1,13 +1,20 @@
 <?php
-// List all subdirectories recursively
+// List all directories and files recursively
 function listDirectories($path, $level = 0) {
     $indent = str_repeat("  ", $level); // Two spaces per level for indentation
-    $directories = glob($path . '/*', GLOB_ONLYDIR);
     
+    // List directories first
+    $directories = glob($path . '/*', GLOB_ONLYDIR);
     foreach ($directories as $dir) {
-        echo $indent . "└── " . basename($dir) . "\n";
-        // Recursively list subdirectories
+        echo $indent . "└── 📁 " . basename($dir) . "\n";
+        // Recursively list contents of subdirectory
         listDirectories($dir, $level + 1);
+    }
+    
+    // Then list files
+    $files = array_filter(glob($path . '/*'), 'is_file');
+    foreach ($files as $file) {
+        echo $indent . "└── 📄 " . basename($file) . "\n";
     }
 }
 

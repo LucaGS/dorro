@@ -1,7 +1,7 @@
 <?php
-namespace App\Controllers;
-use App\Models\UserModel;
-use App\Views\Response;
+namespace app\Controllers;
+use app\Models\UserModel;
+use app\Views\Response;
 
 class UserController
 {

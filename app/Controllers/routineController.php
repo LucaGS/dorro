@@ -1,5 +1,5 @@
 <?php
-namespace App\Controllers;
+namespace app\Controllers;
 use App\Models\RoutineModel;
 use App\Views\Response;
 

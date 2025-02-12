@@ -1,5 +1,5 @@
 <?php
-namespace App\Controllers;
+namespace app\Controllers;
 use App\Models\activityModel;
 use app\Views\Response;
 class ActivityController
