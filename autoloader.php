@@ -1,31 +1,42 @@
 <?php
 
 spl_autoload_register(function ($class) {
+    // Debug information
+    error_log("Attempting to load class: " . $class);
+    
     // Convert namespace separators to directory separators
     $baseDir = __DIR__;
     
-    // Handle the 'App' namespace specifically
-    $prefix = 'App\\';
+    // Remove 'App\' from the beginning if it exists
+    $class = str_ireplace('App\\', '', $class);
     
-    // Check if the class uses our namespace prefix
-    if (strncmp($prefix, $class, strlen($prefix)) !== 0) {
-        return;
+    // Try multiple path variations
+    $possibilities = [
+        // Standard path
+        $baseDir . '/App/' . str_replace('\\', '/', $class) . '.php',
+        // Lowercase path
+        $baseDir . '/app/' . strtolower(str_replace('\\', '/', $class)) . '.php',
+        // Direct path
+        $baseDir . '/' . str_replace('\\', '/', $class) . '.php',
+    ];
+    
+    // Debug: show all paths being checked
+    foreach ($possibilities as $path) {
+        error_log("Checking path: " . $path);
+        error_log("File exists: " . (file_exists($path) ? 'true' : 'false'));
     }
     
-    // Get the relative class name
-    $relativeClass = substr($class, strlen($prefix));
-    
-    // Convert class name to a file path
-    $file = $baseDir . '/App/' . str_replace('\\', '/', $relativeClass) . '.php';
-    
-    // If the file exists, require it
-    if (file_exists($file)) {
-        require_once $file;
-        return;
+    // Try to require the first file that exists
+    foreach ($possibilities as $path) {
+        if (file_exists($path)) {
+            require_once $path;
+            error_log("Successfully loaded: " . $path);
+            return true;
+        }
     }
     
-    // If exact case doesn't exist, throw an informative error
-    throw new Exception("Die Klasse $class konnte nicht geladen werden (Datei: $file). " .
-                       "Bitte überprüfen Sie Groß-/Kleinschreibung von Verzeichnissen und Dateien.");
+    // If we get here, no file was found
+    throw new Exception("Die Klasse $class konnte nicht geladen werden. " .
+                       "Überprüfte Pfade:\n" . implode("\n", $possibilities));
 });
 
