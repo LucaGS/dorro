@@ -1,11 +1,18 @@
 <?php
-// List all subdirectories
-$path = __DIR__;
-$directories = glob($path . '/*', GLOB_ONLYDIR);
-echo "Subdirectories:\n";
-foreach ($directories as $dir) {
-    echo basename($dir) . "\n";
+// List all subdirectories recursively
+function listDirectories($path, $level = 0) {
+    $indent = str_repeat("  ", $level); // Two spaces per level for indentation
+    $directories = glob($path . '/*', GLOB_ONLYDIR);
+    
+    foreach ($directories as $dir) {
+        echo $indent . "└── " . basename($dir) . "\n";
+        // Recursively list subdirectories
+        listDirectories($dir, $level + 1);
+    }
 }
+
+echo "Directory Structure:\n";
+listDirectories(__DIR__);
 
 require_once __DIR__ . '/autoloader.php';
 require_once __DIR__ .'/config/database.php';
