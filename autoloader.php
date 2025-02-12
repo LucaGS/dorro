@@ -7,17 +7,19 @@ spl_autoload_register(function ($class) {
     // Convert namespace separators to directory separators
     $baseDir = __DIR__;
     
-    // Remove 'App\' from the beginning if it exists
-    $class = str_ireplace('App\\', '', $class);
+    // Keep the full namespace structure but convert backslashes to forward slashes
+    $classPath = str_replace('\\', '/', $class);
     
     // Try multiple path variations
     $possibilities = [
-        // Standard path
-        $baseDir . '/App/' . str_replace('\\', '/', $class) . '.php',
-        // Lowercase path
-        $baseDir . '/app/' . strtolower(str_replace('\\', '/', $class)) . '.php',
-        // Direct path
-        $baseDir . '/' . str_replace('\\', '/', $class) . '.php',
+        // Standard path with App prefix
+        $baseDir . '/' . $classPath . '.php',
+        // Lowercase path with App prefix
+        $baseDir . '/' . strtolower($classPath) . '.php',
+        // Try without App prefix if it exists
+        $baseDir . '/' . str_replace('App/', '', $classPath) . '.php',
+        // Try lowercase without App prefix
+        $baseDir . '/' . strtolower(str_replace('App/', '', $classPath)) . '.php'
     ];
     
     // Debug: show all paths being checked
