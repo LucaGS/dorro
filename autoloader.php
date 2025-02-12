@@ -12,6 +12,14 @@ spl_autoload_register(function ($class) {
     $relativePath = str_replace('App\\', '', $class);
     $file = $baseDir . '/' . str_replace('\\', '/', $relativePath) . '.php';
     
+    // Try lowercase version if original doesn't exist
+    if (!file_exists($file)) {
+        $lowerFile = strtolower($file);
+        if (file_exists($lowerFile)) {
+            $file = $lowerFile;
+        }
+    }
+    
     // Debug information
     error_log("Looking for file: " . $file);
     error_log("File exists: " . (file_exists($file) ? 'true' : 'false'));
