@@ -5,15 +5,12 @@ spl_autoload_register(function ($class) {
     error_log("Attempting to load class: " . $class);
     
     // Base directory is the current directory
-    $baseDir = __DIR__ . '/src';
+    $baseDir = __DIR__;
     
     // Convert namespace separators to directory separators
-    $file = $baseDir . '/' . str_replace('\\', '/', $class) . '.php';
-    
-    // Also try without 'src' if file not found
-    if (!file_exists($file)) {
-        $file = __DIR__ . '/' . str_replace('\\', '/', $class) . '.php';
-    }
+    // Remove the 'App' prefix from the path since it's already in the directory structure
+    $relativePath = str_replace('App\\', '', $class);
+    $file = $baseDir . '/' . str_replace('\\', '/', $relativePath) . '.php';
     
     // Debug information
     error_log("Looking for file: " . $file);
