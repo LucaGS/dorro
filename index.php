@@ -20,7 +20,7 @@ function listDirectories($path, $level = 0) {
 }
 
 echo "Directory Structure:\n";
-listDirectories(__DIR__);
+
 
 require_once __DIR__ . '/autoloader.php';
 require_once __DIR__ .'/config/database.php';
