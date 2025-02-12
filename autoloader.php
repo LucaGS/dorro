@@ -3,9 +3,28 @@
 spl_autoload_register(function ($class) {
     // Debug information
     error_log("Attempting to load class: " . $class);
+    error_log("Current directory (__DIR__): " . __DIR__);
+    
+    // List all directories and files in current directory
+    error_log("Directory contents of " . __DIR__ . ":");
+    $files = scandir(__DIR__);
+    foreach ($files as $file) {
+        error_log(" - " . $file);
+    }
     
     // Base directory is the current directory
     $baseDir = __DIR__ . '/app';  // Changed to include /app directory
+    
+    // List contents of /app directory if it exists
+    if (is_dir($baseDir)) {
+        error_log("Directory contents of " . $baseDir . ":");
+        $appFiles = scandir($baseDir);
+        foreach ($appFiles as $file) {
+            error_log(" - " . $file);
+        }
+    } else {
+        error_log("Warning: /app directory not found at " . $baseDir);
+    }
     
     // Convert namespace separators to directory separators
     // Remove the 'App' prefix from the path since it's already in the directory structure
