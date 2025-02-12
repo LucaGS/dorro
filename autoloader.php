@@ -5,7 +5,7 @@ spl_autoload_register(function ($class) {
     error_log("Attempting to load class: " . $class);
     
     // Base directory is one level up from autoloader
-    $baseDir = __DIR__;
+    $baseDir = __DIR__ . '/App';
     
     // Convert namespace separators to directory separators
     $file = $baseDir . '/' . str_replace('\\', '/', $class) . '.php';
@@ -20,7 +20,7 @@ spl_autoload_register(function ($class) {
         error_log("Successfully loaded: " . $file);
         return true;
     }
-    
+    error_log("Autoloader versucht zu laden: " . $class);
     throw new Exception("Die Klasse $class konnte nicht geladen werden. " .
                        "Überprüfte Pfade:\n" . $file);
 });
