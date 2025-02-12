@@ -3,7 +3,7 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use  App\Views\Response;
 
-class UserController
+class userController
 {
     private $response;
     private $userModel;
