@@ -41,10 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_GET['action'])) {
         case 'LoginUser':
             $userController->LoginUser();
             break;
-
         case 'UpdateActivityPositions':
                 $activityController->UpdateActivityPositions();
                 break;
+        case'UpdateUserPoints':
+            $userController->updatePoints();
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE' && isset($_GET['action'])) {

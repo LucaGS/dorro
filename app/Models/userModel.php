@@ -25,7 +25,7 @@ class UserModel
         return $users;
     }
     public function createUser($username, $email, $password)
-{
+    {
     // Passwort hashen
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
@@ -41,7 +41,22 @@ class UserModel
     // Direkt die zuletzt eingefügte ID abrufen
     $userId = mysqli_insert_id($this->db);
     return ['userid' => $userId];
-}
+    }
+    public function createUserPointCount($userId){
+        $userStartingPointCount = 0;
+        $query = "INSERT INTO user_points(user_id,count)VALUES(?,?)";
+        $stmt = mysqli_prepare($this->db,$query);
+        mysqli_stmt_bind_param($stmt,'ii',$userId,$userStartingPointCount);
+        mysqli_stmt_execute($stmt);
+    }
+    public function updateUserPointCount($userId, $points){
+        $query = "UPDATE userpoints SET count = count + (?) WHERE userid = (?)";
+        $stmt = mysqli_prepare($this->db,$query);
+        mysqli_stmt_bind_param($stmt,'ii',$userId,$points);
+        if(!mysqli_stmt_execute($stmt)){
+            return false;
+        }
+    }
 
     public function getUserByEmail($email, $password)
     {
