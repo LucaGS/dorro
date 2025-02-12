@@ -5,10 +5,15 @@ spl_autoload_register(function ($class) {
     error_log("Attempting to load class: " . $class);
     
     // Base directory is the current directory
-    $baseDir = __DIR__;
+    $baseDir = __DIR__ . '/src';
     
     // Convert namespace separators to directory separators
     $file = $baseDir . '/' . str_replace('\\', '/', $class) . '.php';
+    
+    // Also try without 'src' if file not found
+    if (!file_exists($file)) {
+        $file = __DIR__ . '/' . str_replace('\\', '/', $class) . '.php';
+    }
     
     // Debug information
     error_log("Looking for file: " . $file);
@@ -20,6 +25,7 @@ spl_autoload_register(function ($class) {
         error_log("Successfully loaded: " . $file);
         return true;
     }
+    
     error_log("Autoloader versucht zu laden: " . $class);
     throw new Exception("Die Klasse $class konnte nicht geladen werden. " .
                        "Überprüfte Pfade:\n" . $file);
