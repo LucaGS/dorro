@@ -31,4 +31,29 @@ function getDatabaseConnection() {
         die("Fehler bei der Verbindung zur Datenbank: " . mysqli_connect_error());
     }
 }
+function getDatabaseConnection2() {
+    // Überprüfen ob die erforderlichen Umgebungsvariablen gesetzt sind
+    $required_vars = ["DB_HOST", "DB_USERNAME", "DB_PASSWORD", "DB_DATABASE", "DB_PORT"];
+    foreach ($required_vars as $var) {
+        if (!isset($_ENV[$var])) {
+            die("Fehlende Umgebungsvariable: " . $var);
+        }
+    }
+
+    // Verbindung zur MySQL-Datenbank mit Umgebungsvariablen
+    $con = mysqli_connect(
+        $_ENV["DB_HOST"],     // Hostname
+        $_ENV["DB_USERNAME"], // Benutzername
+        $_ENV["DB_PASSWORD"], // Passwort
+        $_ENV["DB_DATABASE"], // Datenbankname
+        intval($_ENV["DB_PORT"])
+    );
+
+    // Überprüfung der Verbindung
+    if ($con) {
+        return $con;
+    } else {
+        die("Fehler bei der Verbindung zur Datenbank: " . mysqli_connect_error());
+    }
+}
 ?>

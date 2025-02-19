@@ -1,7 +1,7 @@
 <?php
-namespace App\Controllers;
-use App\Models\RoutineModel;
-use App\Views\Response;
+namespace app\Controllers;
+use app\Models\RoutineModel;
+use app\Views\Response;
 
 
 class RoutineController
@@ -44,7 +44,7 @@ class RoutineController
        }
     }
     public function DeleteRoutine(){
-    $routine_id = $_GET['routine_id'];
+    $routine_id = $_POST['routine_id'];
       $result =  $this->routineModel->DeleteUserRoutine($routine_id);
       if($result){
         $this->response->sendResponse('success','deleted routine with the id :'. $routine_id, $routine_id);

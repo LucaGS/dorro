@@ -1,7 +1,7 @@
 <?php
-namespace App\Controllers;
-use App\Models\UserModel;
-use  App\Views\Response;
+namespace app\Controllers;
+use app\Models\UserModel;
+use app\Views\Response;
 
 class UserController
 {
@@ -14,7 +14,7 @@ class UserController
         $this->response = new Response();
     }
 
-    // Methode, um alle Benutzer anzuzeigen
+    // Method to list users
     public function listUsers()
     {
         // Daten aus dem Model abrufen
@@ -38,6 +38,7 @@ class UserController
         $userid = $this->userModel->createUser($username, $email, $password);
 
         if ($userid) {
+            $this->userModel->createUserPointCount($userid);
             $this->response->sendResponse("success", "User registered successfully", $userid);
         } else {
             $this->response->sendResponse("error", "User registration failed", null);
@@ -56,6 +57,21 @@ class UserController
         }
 
 
+    }
+    public function updatePoints() {
+        if (!isset($_POST["userId"], $_POST["points"])) {
+            $this->response->sendResponse("error", "Missing arguments", null);
+            return;
+        }
+        
+        $userId = $_POST["userId"];
+        $points = $_POST["points"];
+        
+        if ($this->userModel->updateUserPointCount($userId, $points)) {
+            $this->response->sendResponse("success", "Points updated successfully", null);
+        } else {
+            $this->response->sendResponse("error", "Failed to update points", null);
+        }
     }
 
 

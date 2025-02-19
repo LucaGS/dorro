@@ -1,6 +1,6 @@
 <?php
-namespace App\Controllers;
-use App\Models\activityModel;
+namespace app\Controllers;
+use app\Models\ActivityModel;
 use app\Views\Response;
 class ActivityController
 {
@@ -8,7 +8,7 @@ class ActivityController
     private $response;
     public function __construct($db)
     {
-        $this->activityModel = new activityModel($db);
+        $this->activityModel = new ActivityModel($db);
         $this->response = new Response();
     }
     public function AddActivityToRoutine(){
