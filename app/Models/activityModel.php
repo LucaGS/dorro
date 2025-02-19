@@ -47,8 +47,6 @@ class activityModel{
         if($stmt){
             mysqli_stmt_bind_param($stmt, 'i', $activity_id);
             mysqli_stmt_execute($stmt); 
-            // For DELETE queries, we don't need to get a result
-            // Just check if the execution was successful
             if(mysqli_stmt_affected_rows($stmt) > 0){
                 return true;
             }
